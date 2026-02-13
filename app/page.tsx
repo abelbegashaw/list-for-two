@@ -151,11 +151,11 @@ export default function Home() {
 
       <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-8 px-5 pb-16 pt-12 sm:gap-10 sm:px-6 sm:pb-20 sm:pt-16">
         <header className="reveal-up">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 flex-nowrap">
             <p className="text-sm uppercase tracking-[0.3em] text-muted">List for Two</p>
             <Link
               href="/valentine"
-              className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white shadow-sm transition hover:bg-[color:var(--rose)]"
+              className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white shadow-sm transition hover:bg-[color:var(--rose)] whitespace-nowrap"
             >
               Open Valentine.exe
             </Link>
