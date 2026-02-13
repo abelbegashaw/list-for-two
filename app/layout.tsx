@@ -10,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "List for Two",
-  description: "A couple themed bucket list for the story you are writing together.",
+  description: "A couple themed bucket list for the story we are writing together.",
   themeColor: "#6e4b3a",
 }
 
