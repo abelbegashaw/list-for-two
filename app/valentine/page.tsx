@@ -73,15 +73,12 @@ const SystemLoveLine = ({
     initial="hidden"
     animate="show"
     transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    className="flex items-center gap-4 rounded-2xl border border-[color:var(--line)] bg-white/60 px-5 py-3 text-sm sm:text-base backdrop-blur-sm"
+    className="rounded-2xl border border-[color:var(--line)] bg-white/60 px-4 py-2 text-xs sm:text-sm backdrop-blur-sm"
   >
-    <span className="min-w-[190px] shrink-0 font-semibold text-[color:var(--deep)] tracking-tight">
+    <span className="font-semibold text-[color:var(--deep)] tracking-tight">
       {line.label}:
-    </span>
-
-    <span className="flex-1 truncate text-[color:var(--ink)]">
-      {line.value}
-    </span>
+    </span>{" "}
+    <span className="text-[color:var(--ink)]">{line.value}</span>
   </motion.div>
 )
 
