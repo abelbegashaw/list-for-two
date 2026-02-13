@@ -12,6 +12,7 @@
   --rose: #c24b5a;
   --deep: #2f2621;
   --shadow: 20 12 32;
+  --font-display: var(--font-body);
 }
 
 @theme inline {

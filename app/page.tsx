@@ -151,11 +151,11 @@ export default function Home() {
       <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-8 px-5 pb-16 pt-12 sm:gap-10 sm:px-6 sm:pb-20 sm:pt-16">
         <header className="reveal-up">
           <p className="text-sm uppercase tracking-[0.3em] text-muted">List for Two</p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight text-deep sm:text-5xl font-[family-name:var(--font-display)] tracking-[-0.01em]">
+          <h1 className="mt-4 text-4xl font-semibold leading-tight text-deep sm:text-5xl">
             Our shared bucket list.
           </h1>
           <p className="mt-4 text-lg text-muted">
-            Add ideas, cross them off, and watch the progress grow.
+            Dream it together, do it together, remember it forever.
           </p>
         </header>
 
@@ -269,9 +269,6 @@ export default function Home() {
           <div className="card-shadow w-full max-w-md rounded-3xl border border-[color:var(--line)] bg-[color:var(--card)] p-8 text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-muted">Private list</p>
             <h2 className="mt-3 text-2xl text-deep">Enter access code</h2>
-            <p className="mt-2 text-sm text-muted">
-              Use the shared code so only you two can edit.
-            </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
               <input
                 value={accessInput}
