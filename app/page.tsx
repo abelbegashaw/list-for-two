@@ -13,6 +13,7 @@ export default function Home() {
   const [draft, setDraft] = useState("")
   const [accessCode, setAccessCode] = useState("")
   const [accessInput, setAccessInput] = useState("")
+  const [showAccess, setShowAccess] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -271,16 +272,26 @@ export default function Home() {
             <p className="mt-2 text-sm text-muted">
               Use the shared code so only you two can edit.
             </p>
-            <input
-              value={accessInput}
-              onChange={(event) => setAccessInput(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") void handleAccessSubmit()
-              }}
-              className="mt-6 w-full rounded-full border border-[color:var(--line)] bg-white/80 px-4 py-3 text-sm text-deep outline-none transition focus:border-[color:var(--accent)]"
-              placeholder="Access code"
-              type="password"
-            />
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <input
+                value={accessInput}
+                onChange={(event) => setAccessInput(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") void handleAccessSubmit()
+                }}
+                className="w-full rounded-full border border-[color:var(--line)] bg-white/80 px-4 py-3 text-sm text-deep outline-none transition focus:border-[color:var(--accent)]"
+                placeholder="Access code"
+                type={showAccess ? "text" : "password"}
+              />
+              <button
+                type="button"
+                onClick={() => setShowAccess((prev) => !prev)}
+                className="rounded-full border border-[color:var(--line)] px-4 py-3 text-sm text-muted transition hover:border-[color:var(--accent)]"
+                aria-pressed={showAccess}
+              >
+                {showAccess ? "Hide" : "View"}
+              </button>
+            </div>
             <button
               type="button"
               onClick={() => void handleAccessSubmit()}
