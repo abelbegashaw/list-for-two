@@ -152,16 +152,36 @@ const Petals = () => {
   )
 }
 
-const SystemLoveLine = ({ line, delay }: { line: LoveLine; delay: number }) => (
+const SystemLoveLine = ({
+  line,
+  delay,
+  floatDelay,
+}: {
+  line: LoveLine
+  delay: number
+  floatDelay: number
+}) => (
   <motion.div
     variants={lineVariants}
     initial="hidden"
     animate="show"
     transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    className="grid items-start gap-2 text-lg text-muted sm:grid-cols-[180px_1fr]"
+    className="grid items-start gap-3 text-base text-muted sm:grid-cols-[180px_1fr]"
   >
-    <span className="love-label">{line.label}:</span>
-    <span>{line.value}</span>
+    <motion.div
+      animate={{ y: [0, -4, 0] }}
+      transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
+      className="rounded-2xl border border-[color:var(--line)] bg-white/70 px-4 py-3 shadow-sm"
+    >
+      <span className="love-label">{line.label}:</span>
+    </motion.div>
+    <motion.div
+      animate={{ y: [0, -4, 0] }}
+      transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: floatDelay + 0.2 }}
+      className="rounded-2xl border border-[color:var(--line)] bg-white/70 px-4 py-3 shadow-sm"
+    >
+      {line.value}
+    </motion.div>
   </motion.div>
 )
 
@@ -277,7 +297,12 @@ const CelebrationScene = ({
     ) : (
       <div className="mx-auto mt-5 flex max-w-xl flex-col gap-3 text-left">
         {loveLines.map((line, index) => (
-          <SystemLoveLine key={line.label} line={line} delay={0.2 + index * 0.3} />
+          <SystemLoveLine
+            key={line.label}
+            line={line}
+            delay={0.2 + index * 0.3}
+            floatDelay={(index % 6) * 0.4}
+          />
         ))}
       </div>
     )}
