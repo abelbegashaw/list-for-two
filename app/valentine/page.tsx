@@ -23,6 +23,7 @@ const noMessages = [
   "Are you sure? That throws an exception.",
   "I will keep the loop running.",
   "Abort? Not in this build.",
+  "Come on Precious, do you really wanna miss out on me?",
 ]
 
 const loveLines: LoveLine[] = [
@@ -49,6 +50,29 @@ const loveLines: LoveLine[] = [
 ]
 
 const footerEmojis = ["💞", "💗", "🌹", "✨", "💘", "💫"]
+
+const slideGradients = [
+  "bg-[linear-gradient(135deg,rgba(190,232,170,0.55),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(241,174,195,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(250,228,140,0.5),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(210,196,170,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(238,210,168,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(200,225,255,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(214,214,214,0.5),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(255,204,184,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(188,222,204,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(197,217,248,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(240,215,170,0.5),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(245,224,170,0.5),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(222,196,178,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(120,160,210,0.35),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(233,188,198,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(235,205,185,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(200,210,255,0.4),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(210,196,182,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(236,195,195,0.45),rgba(247,242,232,0.85))]",
+  "bg-[linear-gradient(135deg,rgba(240,210,200,0.45),rgba(247,242,232,0.85))]",
+]
 
 const introVariants = {
   initial: { opacity: 0, y: 16 },
@@ -79,6 +103,68 @@ const SystemLoveLine = ({
       {line.label}:
     </span>{" "}
     <span className="text-[color:var(--ink)]">{line.value}</span>
+  </motion.div>
+)
+
+const LoveSlide = ({ line, index }: { line: LoveLine; index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, rotateX: 38, rotateY: -22, scale: 0.92, y: 28 }}
+    whileInView={{ opacity: 1, rotateX: 0, rotateY: 0, scale: 1, y: 0 }}
+    viewport={{ once: false, amount: 0.6 }}
+    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    style={{ transformPerspective: 1400 }}
+    className={`scroll-slide flex h-full snap-start flex-col items-center justify-center rounded-3xl px-4 text-center shadow-lg ${slideGradients[index % slideGradients.length]}`}
+  >
+    <p className="text-sm uppercase tracking-[0.3em] text-muted">System line</p>
+    <p className="mt-4 text-3xl font-semibold text-deep sm:text-4xl shadow-[0_18px_50px_rgba(47,38,33,0.12)]">
+      {line.label}:
+    </p>
+    <p className="mt-3 text-2xl text-[color:var(--ink)] sm:text-3xl">
+      {line.value}
+    </p>
+  </motion.div>
+)
+
+const FinalLoveSlide = ({
+  finalMessage,
+  confirmedMessage,
+}: {
+  finalMessage: boolean
+  confirmedMessage: boolean
+}) => (
+  <motion.div
+    initial={{ opacity: 0, rotateX: 38, rotateY: 22, scale: 0.92, y: 28 }}
+    whileInView={{ opacity: 1, rotateX: 0, rotateY: 0, scale: 1, y: 0 }}
+    viewport={{ once: false, amount: 0.6 }}
+    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    style={{ transformPerspective: 1400 }}
+    className="scroll-slide flex h-full flex-col items-center justify-center gap-3 rounded-3xl bg-[color:var(--rose)] px-4 text-center text-[color:var(--card)] shadow-2xl"
+  >
+    <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--card)]/70">Final prompt</p>
+    <AnimatePresence>
+      {finalMessage ? (
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-2xl font-semibold sm:text-3xl"
+        >
+          Will you be my Valentine? 🌹
+        </motion.p>
+      ) : null}
+    </AnimatePresence>
+    <AnimatePresence>
+      {confirmedMessage ? (
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-base text-[color:var(--card)]/90"
+        >
+          Already confirmed. Always. ✨💞💗
+        </motion.p>
+      ) : null}
+    </AnimatePresence>
   </motion.div>
 )
 
@@ -136,6 +222,37 @@ const Sparkles = () => {
             animationDelay: sparkle.delay,
           }}
         />
+      ))}
+    </div>
+  )
+}
+
+const FlowerSprinkles = () => {
+  const flowers = useMemo(
+    () =>
+      Array.from({ length: 10 }, (_, index) => ({
+        id: index,
+        left: `${(index * 100) / 10}%`,
+        delay: `${(index % 5) * 0.6}s`,
+        size: 20 + (index % 3) * 6,
+      })),
+    []
+  )
+
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      {flowers.map((flower) => (
+        <span
+          key={flower.id}
+          className="flower-float"
+          style={{
+            left: flower.left,
+            fontSize: `${flower.size}px`,
+            animationDelay: flower.delay,
+          }}
+        >
+          🌹
+        </span>
       ))}
     </div>
   )
@@ -261,64 +378,23 @@ const CelebrationScene = ({
         Booting romance… 💗
       </p>
     ) : (
-      <div className="mx-auto mt-6 flex w-full max-w-2xl flex-col gap-2 text-left">
-        {loveLines.map((line, index) => (
-          <SystemLoveLine
-            key={line.label}
-            line={line}
-            delay={0.2 + index * 0.25}
-          />
-        ))}
+      <div className="mx-auto mt-6 w-full max-w-2xl">
+        <p className="text-center text-sm text-muted">Scroll to continue ⬇️</p>
+        <div className="scroll-clean scroll-stage mt-4 h-[58vh] snap-y snap-mandatory overflow-y-auto rounded-3xl border border-[color:var(--line)] bg-transparent">
+          {loveLines.map((line, index) => (
+            <div key={line.label} className="h-[58vh] snap-start">
+              <LoveSlide line={line} index={index} />
+            </div>
+          ))}
+          <div className="h-[58vh] snap-start p-4">
+            <FinalLoveSlide
+              finalMessage={finalMessage}
+              confirmedMessage={confirmedMessage}
+            />
+          </div>
+        </div>
       </div>
     )}
-
-    <AnimatePresence>
-      {(finalMessage || confirmedMessage) && (
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 8 }}
-          transition={{ duration: 0.6 }}
-          className="relative mt-10 overflow-hidden rounded-3xl border border-[color:var(--line)] bg-[color:var(--card)] px-6 py-6 text-center shadow-lg"
-        >
-          {footerEmojis.map((emoji, index) => (
-            <motion.span
-              key={`${emoji}-${index}`}
-              className="absolute text-lg"
-              style={{
-                left: `${8 + index * 14}%`,
-                top: index % 2 === 0 ? "-6px" : "auto",
-                bottom: index % 2 === 0 ? "auto" : "-8px",
-              }}
-              animate={{ y: [0, -6, 0], opacity: [0.6, 1, 0.7] }}
-              transition={{ duration: 3.2, repeat: Infinity, delay: index * 0.3 }}
-            >
-              {emoji}
-            </motion.span>
-          ))}
-          {finalMessage && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-2xl font-semibold text-deep"
-            >
-              Will you be my Valentine? 🌙
-            </motion.p>
-          )}
-          {confirmedMessage && (
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-2 text-lg text-[color:var(--rose)]"
-            >
-              Already confirmed. Always. 💞✨
-            </motion.p>
-          )}
-        </motion.div>
-      )}
-    </AnimatePresence>
   </motion.div>
 )
 
@@ -363,8 +439,15 @@ export default function ValentinePage() {
     target: pageRef,
     offset: ["start end", "end start"],
   })
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, -60])
-  const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.25, 0.55])
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, -80])
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7, 1], [0.18, 0.5, 0.25, 0.6])
+  const tintOpacity = useTransform(scrollYProgress, [0, 0.35, 0.7, 1], [0.05, 0.22, 0.12, 0.3])
+  const cardScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 0.98])
+  const cardY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -14, 10])
+  const cardRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [6, 0, -4])
+  const cardRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-6, 0, 6])
+  const floatOpacity = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], [0.55, 1, 0.6, 0.85])
+  const floatScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.06, 0.98])
 
   const handleBackgroundClick = (event: ReactMouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement | null
@@ -447,6 +530,39 @@ export default function ValentinePage() {
           width: 10px;
           height: 10px;
           animation: confetti-fall 2.6s linear infinite;
+        }
+        .flower-float {
+          position: absolute;
+          bottom: -30px;
+          opacity: 0.7;
+          filter: drop-shadow(0 6px 10px rgba(194, 75, 90, 0.35));
+          animation: flower-float 10s ease-in-out infinite;
+        }
+        @keyframes flower-float {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+          }
+          20% {
+            opacity: 0.85;
+          }
+          100% {
+            transform: translateY(-110vh) rotate(18deg);
+            opacity: 0;
+          }
+        }
+        .scroll-clean {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .scroll-clean::-webkit-scrollbar {
+          display: none;
+        }
+        .scroll-stage {
+          perspective: 1200px;
+        }
+        .scroll-slide {
+          transform-style: preserve-3d;
         }
         @keyframes sparkle {
           0%,
@@ -534,12 +650,27 @@ export default function ValentinePage() {
       <div className="pointer-events-none absolute inset-0 grain-overlay" aria-hidden="true" />
 
       <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{ opacity: tintOpacity }}
+      >
+        <div className="h-full w-full bg-[radial-gradient(circle_at_20%_10%,rgba(245,194,107,0.5),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(194,75,90,0.35),transparent_45%)]" />
+      </motion.div>
+      <motion.div
         className="pointer-events-none absolute left-[10%] top-16 h-56 w-56 rounded-full bg-[color:var(--sun)]/30 blur-3xl"
         style={{ y: glowY, opacity: glowOpacity }}
       />
-      <FloatingHearts />
-      <Sparkles />
-      <Petals />
+      <motion.div className="pointer-events-none absolute inset-0" style={{ opacity: floatOpacity, scale: floatScale }}>
+        <FloatingHearts />
+      </motion.div>
+      <motion.div className="pointer-events-none absolute inset-0" style={{ opacity: floatOpacity }}>
+        <Sparkles />
+      </motion.div>
+      <motion.div className="pointer-events-none absolute inset-0" style={{ opacity: floatOpacity }}>
+        <Petals />
+      </motion.div>
+      <motion.div className="pointer-events-none absolute inset-0" style={{ opacity: floatOpacity }}>
+        <FlowerSprinkles />
+      </motion.div>
 
       <div className="mx-auto w-full max-w-3xl flex flex-col gap-8">
         <div className="flex items-center justify-between">
@@ -555,10 +686,11 @@ export default function ValentinePage() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
+          style={{ scale: cardScale, y: cardY, rotateX: cardRotateX, rotateY: cardRotateY, transformPerspective: 1200 }}
           className="relative rounded-3xl border border-[color:var(--line)] bg-[color:var(--card)] p-8 sm:p-12 shadow-xl"
         >
           <AnimatePresence mode="wait">
