@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <meta name="theme-color" content="#f7f2e8" />
+      <meta name="theme-color" content="#6e4b3a" />
     </>
   )
 }
