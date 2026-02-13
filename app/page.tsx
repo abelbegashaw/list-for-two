@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
 
 type ListItem = {
@@ -150,7 +151,15 @@ export default function Home() {
 
       <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-8 px-5 pb-16 pt-12 sm:gap-10 sm:px-6 sm:pb-20 sm:pt-16">
         <header className="reveal-up">
-          <p className="text-sm uppercase tracking-[0.3em] text-muted">List for Two</p>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-muted">List for Two</p>
+            <Link
+              href="/valentine"
+              className="rounded-full border border-[color:var(--line)] px-4 py-2 text-xs uppercase tracking-[0.2em] text-muted transition hover:border-[color:var(--accent)] hover:text-deep"
+            >
+              Valentine.exe
+            </Link>
+          </div>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-deep sm:text-5xl">
             Our shared bucket list.
           </h1>
