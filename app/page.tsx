@@ -155,9 +155,9 @@ export default function Home() {
             <p className="text-sm uppercase tracking-[0.3em] text-muted">List for Two</p>
             <Link
               href="/valentine"
-              className="rounded-full border border-[color:var(--line)] px-4 py-2 text-xs uppercase tracking-[0.2em] text-muted transition hover:border-[color:var(--accent)] hover:text-deep"
+              className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white shadow-sm transition hover:bg-[color:var(--rose)]"
             >
-              Valentine.exe
+              Open Valentine.exe
             </Link>
           </div>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-deep sm:text-5xl">
