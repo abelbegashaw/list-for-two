@@ -151,7 +151,7 @@ export default function Home() {
       <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-8 px-5 pb-16 pt-12 sm:gap-10 sm:px-6 sm:pb-20 sm:pt-16">
         <header className="reveal-up">
           <p className="text-sm uppercase tracking-[0.3em] text-muted">List for Two</p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight text-deep sm:text-5xl">
+          <h1 className="mt-4 text-4xl font-semibold leading-tight text-deep sm:text-5xl font-[family-name:var(--font-display)] tracking-[-0.01em]">
             Our shared bucket list.
           </h1>
           <p className="mt-4 text-lg text-muted">
