@@ -328,6 +328,8 @@ export default function ValentinePage() {
   const [revealLines, setRevealLines] = useState(false)
   const [finalMessage, setFinalMessage] = useState(false)
   const [confirmedMessage, setConfirmedMessage] = useState(false)
+  const [burstHearts, setBurstHearts] = useState<BurstHeart[]>([])
+  const nextBurstId = useRef(0)
 
   const confetti = useMemo(
     () =>
@@ -356,8 +358,24 @@ export default function ValentinePage() {
     setNoIndex((prev) => (prev + 1) % noMessages.length)
   }
 
+  const handleBackgroundClick = (event: ReactMouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement | null
+    if (target?.closest("button, a, input, textarea, select")) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    const id = nextBurstId.current++
+    setBurstHearts((prev) => [...prev, { id, x, y }].slice(-16))
+    window.setTimeout(() => {
+      setBurstHearts((prev) => prev.filter((heart) => heart.id !== id))
+    }, 1400)
+  }
+
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[color:var(--canvas)] text-[color:var(--ink)] px-6 py-12">
+    <div
+      className="relative min-h-screen overflow-hidden bg-[color:var(--canvas)] text-[color:var(--ink)] px-6 py-12"
+      onClick={handleBackgroundClick}
+    >
       <style jsx global>{`
         .float-heart {
           position: absolute;
@@ -458,6 +476,41 @@ export default function ValentinePage() {
             opacity: 0;
           }
         }
+        .burst-heart {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          background: #c24b5a;
+          transform: rotate(45deg);
+          animation: burst-heart 1.2s ease-out forwards;
+        }
+        .burst-heart::before,
+        .burst-heart::after {
+          content: "";
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          background: #c24b5a;
+          border-radius: 50%;
+        }
+        .burst-heart::before {
+          left: -8px;
+          top: 0;
+        }
+        .burst-heart::after {
+          top: -8px;
+          left: 0;
+        }
+        @keyframes burst-heart {
+          0% {
+            transform: translateY(0) rotate(45deg) scale(0.7);
+            opacity: 0.9;
+          }
+          100% {
+            transform: translateY(-60px) rotate(45deg) scale(1.2);
+            opacity: 0;
+          }
+        }
       `}</style>
 
       <div className="pointer-events-none absolute inset-0 paper-texture" aria-hidden="true" />
@@ -533,6 +586,20 @@ export default function ValentinePage() {
           </AnimatePresence>
         </div>
       </div>
+
+      <AnimatePresence>
+        {burstHearts.length ? (
+          <div className="pointer-events-none absolute inset-0">
+            {burstHearts.map((heart) => (
+              <span
+                key={heart.id}
+                className="burst-heart"
+                style={{ left: heart.x, top: heart.y }}
+              />
+            ))}
+          </div>
+        ) : null}
+      </AnimatePresence>
     </div>
   )
 }
