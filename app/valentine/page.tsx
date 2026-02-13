@@ -26,11 +26,26 @@ const noMessages = [
 ]
 
 const loveLines: LoveLine[] = [
-  { label: "Build status", value: "green" },
-  { label: "Love latency", value: "zero" },
-  { label: "Memory leaks", value: "none" },
-  { label: "Co-op mode", value: "stargazing, inside jokes, soft kisses" },
-  { label: "Next sprint", value: "forever" },
+  { label: "Build status", value: "green 💚" },
+  { label: "Heart uptime", value: "100% since you 💗" },
+  { label: "Love latency", value: "zero ⚡" },
+  { label: "Core dependency", value: "your laugh" },
+  { label: "Primary key", value: "your hand in mine" },
+  { label: "Authentication", value: "you + me = verified 🔐" },
+  { label: "Memory leaks", value: "none (I remember every little thing about you) 🧠" },
+  { label: "Crash reports", value: "only when you smile like that" },
+  { label: "Background process", value: "constantly thinking about you" },
+  { label: "Signal strength", value: "full bars in your arms 📶" },
+  { label: "Auto-save", value: "every moment with you" },
+  { label: "Patch notes", value: "added more kisses ✨" },
+  { label: "Fallback protocol", value: "hold you closer" },
+  { label: "Co-op mode", value: "stargazing, inside jokes, soft kisses 🌙" },
+  { label: "Hidden achievement", value: "making you blush" },
+  { label: "Infinite loop", value: "me choosing you" },
+  { label: "Version control", value: "v1.0 → vForever ♾️" },
+  { label: "Next sprint", value: "building a life together" },
+  { label: "Final deployment", value: "your arms, always" },
+  { label: "End-of-life policy", value: "not supported ❤️" },
 ]
 
 const floatVariants = {
@@ -138,15 +153,16 @@ const Petals = () => {
 }
 
 const SystemLoveLine = ({ line, delay }: { line: LoveLine; delay: number }) => (
-  <motion.p
+  <motion.div
     variants={lineVariants}
     initial="hidden"
     animate="show"
     transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    className="text-lg text-muted"
+    className="grid items-start gap-2 text-lg text-muted sm:grid-cols-[180px_1fr]"
   >
-    <span className="love-label">{line.label}:</span> {line.value}
-  </motion.p>
+    <span className="love-label">{line.label}:</span>
+    <span>{line.value}</span>
+  </motion.div>
 )
 
 const ProposalIntro = ({ onAccept, onNo, noMessage }: {
@@ -170,7 +186,7 @@ const ProposalIntro = ({ onAccept, onNo, noMessage }: {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="mt-3 text-3xl font-semibold text-deep sm:text-4xl"
     >
-      I wrote a tiny script that only compiles with you.
+      I wrote a tiny script that only compiles with you. 💻💘
     </motion.h1>
     <motion.p
       variants={floatVariants}
@@ -179,7 +195,7 @@ const ProposalIntro = ({ onAccept, onNo, noMessage }: {
       transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
       className="mt-4 text-lg text-muted"
     >
-      Confirm to unlock co-op mode and a lifetime subscription to my heart.
+      Confirm to unlock co-op mode and a lifetime subscription to my heart. 🫶
     </motion.p>
     <motion.p
       variants={floatVariants}
@@ -188,7 +204,7 @@ const ProposalIntro = ({ onAccept, onNo, noMessage }: {
       transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       className="mt-3 text-lg text-muted"
     >
-      Side effects include giggles, hand-holding, and very soft smiles.
+      Side effects include giggles, hand-holding, and very soft smiles. 😊
     </motion.p>
     <motion.p
       variants={floatVariants}
@@ -197,7 +213,7 @@ const ProposalIntro = ({ onAccept, onNo, noMessage }: {
       transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
       className="mt-3 text-lg text-muted"
     >
-      Precious, will you be my valentine?
+      Precious, will you be my valentine? 🌹
     </motion.p>
     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
       <motion.button
@@ -207,7 +223,7 @@ const ProposalIntro = ({ onAccept, onNo, noMessage }: {
         onClick={onAccept}
         className="rounded-full bg-[color:var(--accent)] px-6 py-3 text-sm text-white shadow-md"
       >
-        Yes, I choose you
+        Yes, I choose you 💞
       </motion.button>
       <motion.button
         whileHover={{ x: 6 }}
@@ -215,7 +231,7 @@ const ProposalIntro = ({ onAccept, onNo, noMessage }: {
         onClick={onNo}
         className="rounded-full border border-[color:var(--line)] px-6 py-3 text-sm text-muted transition hover:border-[color:var(--accent)]"
       >
-        Not yet
+        Not yet 😅
       </motion.button>
     </div>
     <motion.p
@@ -254,10 +270,10 @@ const CelebrationScene = ({
       Heart.exe is running
     </h1>
     <p className="mt-4 text-lg text-muted">
-      Precious, you just approved my favorite pull request.
+      Precious, you just approved my favorite pull request. 🥹
     </p>
     {!reveal ? (
-      <p className="mt-4 text-sm text-muted">Booting romance…</p>
+      <p className="mt-4 text-sm text-muted">Booting romance… 💗</p>
     ) : (
       <div className="mx-auto mt-5 flex max-w-xl flex-col gap-3 text-left">
         {loveLines.map((line, index) => (
@@ -274,7 +290,7 @@ const CelebrationScene = ({
           transition={{ duration: 0.6 }}
           className="mt-8 text-2xl font-semibold text-deep"
         >
-          Will you be my Valentine?
+          Will you be my Valentine? 🌙
         </motion.p>
       ) : null}
     </AnimatePresence>
@@ -287,7 +303,7 @@ const CelebrationScene = ({
           transition={{ duration: 0.6 }}
           className="mt-2 text-lg text-[color:var(--rose)]"
         >
-          Already confirmed. Always. 💞
+          Already confirmed. Always. 💞✨
         </motion.p>
       ) : null}
     </AnimatePresence>
