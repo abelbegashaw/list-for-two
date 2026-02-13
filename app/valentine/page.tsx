@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import type { MouseEvent as ReactMouseEvent } from "react"
 import { useEffect, useMemo, useRef, useState } from "react"
 
@@ -323,6 +323,7 @@ const CelebrationScene = ({
 )
 
 export default function ValentinePage() {
+  const pageRef = useRef<HTMLDivElement | null>(null)
   const [accepted, setAccepted] = useState(false)
   const [noIndex, setNoIndex] = useState(0)
   const [revealLines, setRevealLines] = useState(false)
@@ -358,6 +359,13 @@ export default function ValentinePage() {
     setNoIndex((prev) => (prev + 1) % noMessages.length)
   }
 
+  const { scrollYProgress } = useScroll({
+    target: pageRef,
+    offset: ["start end", "end start"],
+  })
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, -60])
+  const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.25, 0.55])
+
   const handleBackgroundClick = (event: ReactMouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement | null
     if (target?.closest("button, a, input, textarea, select")) return
@@ -373,6 +381,7 @@ export default function ValentinePage() {
 
   return (
     <div
+      ref={pageRef}
       className="relative min-h-screen overflow-hidden bg-[color:var(--canvas)] text-[color:var(--ink)] px-6 py-12"
       onClick={handleBackgroundClick}
     >
@@ -524,6 +533,10 @@ export default function ValentinePage() {
       />
       <div className="pointer-events-none absolute inset-0 grain-overlay" aria-hidden="true" />
 
+      <motion.div
+        className="pointer-events-none absolute left-[10%] top-16 h-56 w-56 rounded-full bg-[color:var(--sun)]/30 blur-3xl"
+        style={{ y: glowY, opacity: glowOpacity }}
+      />
       <FloatingHearts />
       <Sparkles />
       <Petals />
@@ -541,7 +554,13 @@ export default function ValentinePage() {
           </span>
         </div>
 
-        <div className="relative rounded-3xl border border-[color:var(--line)] bg-[color:var(--card)] p-8 sm:p-12 shadow-xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="relative rounded-3xl border border-[color:var(--line)] bg-[color:var(--card)] p-8 sm:p-12 shadow-xl"
+        >
           <AnimatePresence mode="wait">
             {accepted ? (
               <CelebrationScene
@@ -584,7 +603,7 @@ export default function ValentinePage() {
               </motion.div>
             ) : null}
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
