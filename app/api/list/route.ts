@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { database } from "@/lib/firebaseAdmin"
+import { getDatabase } from "@/lib/firebaseAdmin"
 
 type ListItem = {
   id: string
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const listRef = database.ref(`lists/${listDocId}`)
+    const listRef = getDatabase().ref(`lists/${listDocId}`)
     const snapshot = await listRef.get()
 
     if (!snapshot.exists()) {
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
     }))
 
   try {
-    const listRef = database.ref(`lists/${listDocId}`)
+    const listRef = getDatabase().ref(`lists/${listDocId}`)
     await listRef.set({
       _id: listDocId,
       items,

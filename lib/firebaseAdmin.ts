@@ -25,7 +25,8 @@ const getFirebaseConfig = (): FirebaseAdminConfig => {
   }
 }
 
-if (!admin.apps.length) {
+const ensureFirebaseApp = () => {
+  if (admin.apps.length) return
   const config = getFirebaseConfig()
   admin.initializeApp({
     credential: admin.credential.cert(config),
@@ -33,4 +34,7 @@ if (!admin.apps.length) {
   })
 }
 
-export const database = admin.database()
+export const getDatabase = () => {
+  ensureFirebaseApp()
+  return admin.database()
+}
