@@ -15,11 +15,12 @@ type ListDocument = {
 }
 
 const listDocId = "shared"
-const accessCode = process.env.LIST_ACCESS_CODE ?? ""
+const accessCode = (process.env.LIST_ACCESS_CODE ?? "131023").trim()
 
 const verifyAccess = (request: Request): boolean => {
   const provided = request.headers.get("x-access-code")
-  return Boolean(accessCode) && typeof provided === "string" && provided.trim() === accessCode
+  const normalizedProvided = typeof provided === "string" ? provided.trim() : ""
+  return Boolean(accessCode) && normalizedProvided === accessCode
 }
 
 export async function GET(request: Request) {
